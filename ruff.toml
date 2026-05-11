@@ -1,0 +1,8 @@
+# ruff.toml
+line-length = 100
+indent-width = 4
+
+[lint]
+# Select rules to check: E (errors), F (fatal bugs like unused imports), I (sort imports)
+select = ["E", "F", "I"]
+ignore = ["E501"]  # Tell the linter to ignore line length warnings.
