@@ -1,0 +1,21 @@
+# uv and Virtual Environments.
+.venv/
+.env
+
+# Python caches.
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Background logs.
+*.log
+*.out
+
+# IDEs and editors.
+.vscode/
+.idea/
+*.swp
+
+# Ruff cache.
+.ruff_cache/
