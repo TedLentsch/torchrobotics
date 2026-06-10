@@ -1,20 +1,43 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "torchrobotics"
 version = "0.1.0"
-description = "Datasets, Transforms and Models specific to Robotics and Machine Vision"
-requires-python = ">=3.10,<3.13"
+description = "Torch-native transforms and algorithms for robotics perception."
 readme = "README.md"
-license = { file = "LICENSE" }
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "Ted Lentsch" }]
+keywords = [
+    "pytorch",
+    "robotics",
+    "perception",
+    "lidar",
+    "computer-vision",
+    "machine-vision",
+    "deep-learning",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+]
 dependencies = [
-    "torch>=2.4.0",
-    "torchvision>=0.19.0",
-    "numpy>=1.26.4",
-    "opencv-python-headless>=4.11.0", 
-    "pyquaternion>=0.9.9",
-    "scikit-learn>=1.5.0",
-    "pillow>=11.0.0",
-    "tqdm>=4.66.0",
-    "cachetools>=5.0.0",
+    "torch>=2.4.0,<2.5.0",
+    "numpy>=1.26",
+    "tqdm>=4.66",
+    "cachetools>=5.0",
 ]
 
 [project.urls]
@@ -28,6 +51,7 @@ dev = [
     "ipywidgets>=8.1.0",
     "jupyterlab>=4.0.0",
     "pytest>=8.0.0",
+    "pytest-cov>=5.0.0",
     "ruff>=0.15.12",
 ]
 
@@ -39,3 +63,44 @@ package = true
 name = "pytorch-cu121"
 url = "https://download.pytorch.org/whl/cu121"
 explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu121" }
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/torchrobotics"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+    "SIM", # flake8-simplify
+    "NPY", # numpy-specific
+]
+ignore = [
+    "E501",  # handled by formatter
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+"tests/**" = ["B"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+]
