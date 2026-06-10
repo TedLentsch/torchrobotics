@@ -43,6 +43,7 @@ class RANSACFlatPlane:
         Fit a plane using RANSAC and return a ground mask.
 
         Example usage:
+            ransac = RANSACFlatPlane()
             torch_generator = torch.Generator(device=pc.device).manual_seed(42)
             bool_ground = ransac.fit(pc=pc, generator=torch_generator)
             ground_pc = pc[bool_ground]
